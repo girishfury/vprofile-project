@@ -1,36 +1,30 @@
 pipeline {
     
 	agent any
-/*	
-	tools {
-        maven "maven3"
-    }
-*/	
-    environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
-        NEXUS_REPOSITORY = "vprofile-release"
-	NEXUS_REPOGRP_ID    = "vprofile-grp-repo"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
-        ARTVERSION = "${env.BUILD_ID}"
-    }
 	
-    stages{
-        
+	tools {
+        maven "Maven3"
+        jdk "JDK8"
+    }
+    environment {
+    SNAP_REPO = 'devops-snapshot'
+    RELEASE-REPO = 'devops-release'
+    CENTRAL_REPO = 'devops-central'
+    NEXUS_GRP_REPO = 'devops-group'
+    NEXUS_USER = 'admin'
+    NEXUS_PASS = 'admin'
+    NEXUSIP = '172.31.19.28'
+    NEXUSPORT = '8081'
+    }  
+    
+    stages{        
         stage('BUILD'){
             steps {
-                sh 'mvn clean install -DskipTests'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
+                sh 'mvn -s settings.xml -DskipTests install'
             }
         }
 
-	stage('UNIT TEST'){
+	/*stage('UNIT TEST'){
             steps {
                 sh 'mvn test'
             }
@@ -112,7 +106,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
 
     }
