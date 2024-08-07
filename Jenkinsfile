@@ -8,7 +8,7 @@ pipeline {
     }
     environment {
     SNAP_REPO = 'devops-snapshot'
-    RELEASE-REPO = 'devops-release'
+    RELEASE_REPO = 'devops-release'
     CENTRAL_REPO = 'devops-central'
     NEXUS_GRP_REPO = 'devops-group'
     NEXUS_USER = 'admin'
