@@ -17,6 +17,7 @@ pipeline {
     NEXUSPORT = '8081'
     SONAR_SERVER = 'sonarServer'
     SONAR_SCANNER = 'sonarScanner'
+    NEXUS_LOGIN = 'nexus'
     }  
     
     stages{        
@@ -71,7 +72,26 @@ pipeline {
                         waitForQualityGate abortPipeline: true
                     }
                 }
-            } 
+            }
+        stage ('Upload Artifact Nexys') {
+            steps{
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID}-${env.BUILd_TIMESTAMP}",
+                    repository: "${RELEASE_REPO}",
+                    credentialsId: "${nexus}",
+                    artifacts: [
+                        [artifactId: 'devops',
+                        classifier: '',
+                        file: 'target/vprofile-v2.war',
+                        type: 'war']
+                    ]
+                )
+            }
+        } 
         
 
 
