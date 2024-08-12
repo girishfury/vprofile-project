@@ -20,7 +20,10 @@ pipeline {
     NEXUS_LOGIN = 'nexus'
     ECR_REGISTRY_CRED = 'ecr:us-east-1:awscreds'
     ECR_REPOSITORY_URL = "https://607490487847.dkr.ecr.us-east-1.amazonaws.com"
-    ECR_IMAGE_NAME = '607490487847.dkr.ecr.us-east-1.amazonaws.com/devops'  
+    ECR_IMAGE_NAME = '607490487847.dkr.ecr.us-east-1.amazonaws.com/devops'
+    CLUSTER = 'StageCluster'
+    SERVICE = 'vprostagsvc'  
+
 
 
     }  
@@ -114,6 +117,14 @@ pipeline {
                         dockerImage.push('latest')
                         
                     }
+                }
+            }
+        }
+        stage ('Deploy Image to ECS') {
+            steps {
+                withAWS(credentials: 'awscreds', region: 'us-east-1') {
+                    sh "aws ecs update-service --cluster ${CLUSTER} --service ${SERVICE} --force-new-deployment"   
+                }
                 }
             }
         }
