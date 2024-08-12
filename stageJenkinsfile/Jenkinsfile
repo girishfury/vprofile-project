@@ -125,10 +125,8 @@ pipeline {
                 withAWS(credentials: 'awscreds', region: 'us-east-1') {
                     sh "aws ecs update-service --cluster ${CLUSTER} --service ${SERVICE} --force-new-deployment"   
                 }
-                }
             }
-        }
-        
+        }       
 
 
 	/*stage('UNIT TEST'){
