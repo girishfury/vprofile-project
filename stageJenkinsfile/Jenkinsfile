@@ -18,6 +18,11 @@ pipeline {
     SONAR_SERVER = 'sonarServer'
     SONAR_SCANNER = 'sonarScanner'
     NEXUS_LOGIN = 'nexus'
+    ECR_REGISTRY_CRED = 'ecr:us-east-1:awscreds'
+    ECR_REPOSITORY_URL = "https://607490487847.dkr.ecr.us-east-1.amazonaws.com"
+    ECR_IMAGE_NAME = '607490487847.dkr.ecr.us-east-1.amazonaws.com/devops'  
+
+
     }  
     
     stages{        
@@ -91,7 +96,25 @@ pipeline {
                     ]
                 )
             }
-        } 
+        }
+
+        stage ('Build App Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${ECR_IMAGE_NAME}" + ":${BUILD_NUMBER}" , "./Docker-files/app/Dockerfile")
+                }
+            }
+        }
+
+        stage ('Upload Image to ECR') {
+            steps {
+                script {
+                     docker.withRegistry("${ECR_REPOSITORY_URL}", "${ECR_REGISTRY_CRED}") {
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
         
 
 
