@@ -110,8 +110,9 @@ pipeline {
             steps {
                 script {
                      docker.withRegistry("${ECR_REPOSITORY_URL}", "${ECR_REGISTRY_CRED}") {
-                        dockerImage.push('latest')
                         dockerImage.push("${BUILD_NUMBER}")
+                        dockerImage.push('latest')
+                        
                     }
                 }
             }
