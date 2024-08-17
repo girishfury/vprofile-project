@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopsApp
+  labels:
+    app: devopsApp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsApp
+  template:
+    metadata:
+      labels:
+        app: devopsApp
+    spec:
+      containers:
+      - name: APP
+        image: girishfury/devopsapp
+        resources:
+          requests:
+            memory: "500m"
+            cpu: "500m"
+          limits:
+            memory: "500m"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

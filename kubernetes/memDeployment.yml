@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcache
+  labels:
+    app: memcache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memcache
+  template:
+    metadata:
+      labels:
+        app: memcache
+    spec:
+      containers:
+      - name: memcache
+        image: memcached
+        resources:
+          requests:
+            memory: "500m"
+            cpu: "500m"
+          limits:
+            memory: "500m"
+            cpu: "500m"
+        ports:
+        - containerPort: 11211
