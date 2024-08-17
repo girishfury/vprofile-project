@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devopsApp
+  name: devopsapp
   labels:
-    app: devopsApp
+    app: devopsapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: devopsApp
+      app: devopsapp
   template:
     metadata:
       labels:
-        app: devopsApp
+        app: devopsapp
     spec:
       containers:
-      - name: APP
+      - name: app
         image: girishfury/devopsapp
         resources:
           requests:
