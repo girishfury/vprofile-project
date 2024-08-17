@@ -17,13 +17,6 @@ spec:
       containers:
       - name: mq
         image: rabbitmq
-        resources:
-          requests:
-            memory: "500m"
-            cpu: "500m"
-          limits:
-            memory: "500m"
-            cpu: "500m"
         ports:
         - containerPort: 15672
         env:

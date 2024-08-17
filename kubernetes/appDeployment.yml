@@ -17,13 +17,6 @@ spec:
       containers:
       - name: app
         image: girishfury/devopsapp
-        resources:
-          requests:
-            memory: "500m"
-            cpu: "500m"
-          limits:
-            memory: "500m"
-            cpu: "500m"
         ports:
         - containerPort: 8080
       nodeSelector:

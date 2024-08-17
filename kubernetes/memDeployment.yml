@@ -17,13 +17,6 @@ spec:
       containers:
       - name: memcache
         image: memcached
-        resources:
-          requests:
-            memory: "500m"
-            cpu: "500m"
-          limits:
-            memory: "500m"
-            cpu: "500m"
         ports:
         - containerPort: 11211
       nodeSelector:
