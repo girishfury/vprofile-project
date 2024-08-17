@@ -34,3 +34,5 @@ spec:
             secretKeyRef:
               name: devops-secrets
               key: mq_password
+      nodeSelector:
+        server: db

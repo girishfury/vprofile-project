@@ -17,6 +17,9 @@ spec:
       containers:
       - name: DB
         image: girishfury/devopsdb
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: ebs-volume
         resources:
           requests:
             memory: "500m"
@@ -34,3 +37,9 @@ spec:
               key: db_password
         - name: MYSQL_DATABASE
           value: "accounts"
+      volumes:
+      - name: ebs-volume
+        persistentVolumeClaim:
+          claimName: ebs-pvc
+      nodeSelector:
+        server: db
