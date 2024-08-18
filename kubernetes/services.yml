@@ -47,7 +47,7 @@ metadata:
   name: frontapp
 spec:
   selector:
-    app: devopsApp
+    app: devopsapp
   ports:
     - port: 80
       targetPort: 8080
